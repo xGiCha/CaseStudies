@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import gr.imdb.movies.viewmodels.CaseStudiesViewModel
 import gr.repo.kincart.R
 import gr.repo.kincart.adapters.CaseStudyAdapter
 import gr.repo.kincart.databinding.FragmentHomeBinding
+import gr.repo.kincart.utils.Resource
 
 class HomeFragment : Fragment() {
 
@@ -43,19 +45,27 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViews() {
-        showShimmerEffect()
-        caseStudiesViewModel.getCaseStudies()
-
         // setup adapter
-        adapter = CaseStudyAdapter(requireContext(), mutableListOf())
+        adapter = CaseStudyAdapter()
         binding.caseStudyRV.layoutManager = LinearLayoutManager(requireContext())
         binding.caseStudyRV.adapter = adapter
     }
 
     private fun setUpObservers() {
-        caseStudiesViewModel.caseStudy.observe(viewLifecycleOwner, Observer { studiesList ->
-            adapter.updateItems(studiesList.caseStudies)
-            hideShimmerEffect()
+        caseStudiesViewModel.caseStudies.observe(viewLifecycleOwner, Observer {caseStudyList ->
+            caseStudyList.data?.let { list ->
+                if(list.isNotEmpty()){
+                    adapter.submitList(list[0].caseStudy.caseStudies)
+
+                    if(caseStudyList is Resource.Loading){
+                        showShimmerEffect()
+                    }else{
+                        hideShimmerEffect()
+                    }
+                }
+            }
+            binding.textViewError.isVisible = caseStudyList is Resource.Error && caseStudyList.data.isNullOrEmpty()
+            binding.textViewError.text = caseStudyList.error?.localizedMessage
         })
     }
 

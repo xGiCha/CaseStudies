@@ -7,7 +7,7 @@ import retrofit2.http.GET
 interface CaseStudiesApi {
 
     @GET("/theappbusiness/engineering-challenge/main/endpoints/v1/caseStudies.json")
-    suspend fun getCaseStudies(): Response<Studies>
+    suspend fun getCaseStudies(): Studies
 
 
 

@@ -8,9 +8,7 @@ class RemoteDataSource @Inject constructor(
     private val caseStudiesApi: CaseStudiesApi
 ) {
 
-    suspend fun getCaseStudies(): Response<Studies>{
+    suspend fun getCaseStudies(): Studies{
         return caseStudiesApi.getCaseStudies()
     }
-
-
 }
