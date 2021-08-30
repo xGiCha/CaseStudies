@@ -1,6 +1,6 @@
 package gr.repo.kincart.utils
 
-sealed class Resource<T>(
+ open class Resource<T>(
         val data: T? = null,
         val error: Throwable? = null
 ) {

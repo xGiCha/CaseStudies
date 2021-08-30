@@ -5,21 +5,21 @@ import com.google.gson.annotations.SerializedName
 
 data class CaseStudy(
         @SerializedName("app_store_url")
-        val appStoreUrl: String,
+        val appStoreUrl: String? = null,
         @SerializedName("client")
-        val client: String,
+        val client: String? = null,
         @SerializedName("hero_image")
-        val heroImage: String,
+        val heroImage: String? = null,
         @SerializedName("id")
         val id: Int,
         @SerializedName("is_enterprise")
-        val isEnterprise: Boolean,
+        val isEnterprise: Boolean? = false,
         @SerializedName("sections")
-        val sections: List<Section>,
+        val sections: List<Section>? = null,
         @SerializedName("teaser")
         val teaser: String? = null,
         @SerializedName("title")
-        val title: String,
+        val title: String? = null,
         @SerializedName("vertical")
-        val vertical: String
+        val vertical: String? = null
 )

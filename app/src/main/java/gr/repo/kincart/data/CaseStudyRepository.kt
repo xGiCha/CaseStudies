@@ -16,28 +16,25 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class CaseStudyRepository @Inject constructor(
     remoteDataSource: RemoteDataSource,
-    caseStudyDatabase: CaseStudyDatabase,
-    localDataSource: LocalDataSource
-
-) {
+    caseStudyDatabase: CaseStudyDatabase
+): CaseStudyInterface {
 
     val remote = remoteDataSource
-    val local = localDataSource
-    val caseStudyLocal = caseStudyDatabase
+    val local = caseStudyDatabase
 
-    fun getCaseStudies() = networkBoundResource(
+    override fun getCaseStudies() = networkBoundResource(
             query = {
-                local.readCaseStudies()
+                local.caseStudyDao().readCaseStudies()
             },
             fetch = {
                 delay(2000)
                 remote.getCaseStudies()
             },
             saveFetchResult = { caseStudies ->
-                caseStudyLocal.withTransaction {
+                local.withTransaction {
                     val caseStudyEntity = CaseStudyEntity(caseStudies)
-                    local.deleteAllCaseStudies()
-                    local.insertCaseStudy(caseStudyEntity)
+                    local.caseStudyDao().deleteAllCaseStudies()
+                    local.caseStudyDao().insertCaseStudy(caseStudyEntity)
                 }
             }
     )

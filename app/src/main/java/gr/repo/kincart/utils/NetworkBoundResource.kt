@@ -3,10 +3,10 @@ package gr.repo.kincart.utils
 import kotlinx.coroutines.flow.*
 
 inline fun <ResultType, RequestType> networkBoundResource(
-        crossinline query: () -> Flow<ResultType>,
-        crossinline fetch: suspend () -> RequestType,
-        crossinline saveFetchResult: suspend (RequestType) -> Unit,
-        crossinline shouldFetch: (ResultType) -> Boolean = { true }
+        crossinline query: () -> Flow<ResultType>, // responsible for getting the data from database
+        crossinline fetch: suspend () -> RequestType, // responsible for getting the data from API
+        crossinline  saveFetchResult: suspend (RequestType) -> Unit, // responsible for getting the data from API and saving it to db
+        crossinline shouldFetch: (ResultType) -> Boolean = { true } // responsible for getting new data from API or not
 ) = flow {
     val data = query().first()
 
