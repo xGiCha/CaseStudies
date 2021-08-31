@@ -17,12 +17,12 @@ import javax.inject.Inject
 class CaseStudyRepository @Inject constructor(
     remoteDataSource: RemoteDataSource,
     caseStudyDatabase: CaseStudyDatabase
-): CaseStudyInterface {
+) {
 
     val remote = remoteDataSource
     val local = caseStudyDatabase
 
-    override fun getCaseStudies() = networkBoundResource(
+    fun getCaseStudies() = networkBoundResource(
             query = {
                 local.caseStudyDao().readCaseStudies()
             },

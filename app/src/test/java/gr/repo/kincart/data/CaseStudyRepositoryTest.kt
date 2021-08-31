@@ -1,11 +1,8 @@
 package gr.repo.kincart.data
 
-import android.app.Application
-import android.app.ApplicationErrorReport
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import gr.imdb.movies.viewmodels.CaseStudiesViewModel
 import gr.repo.kincart.database.CaseStudyDatabase
-import gr.repo.kincart.database.CaseStudyEntity
 import gr.repo.kincart.models.CaseStudy
 import gr.repo.kincart.models.Studies
 import gr.repo.kincart.utils.Resource
@@ -19,7 +16,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -58,12 +54,12 @@ class CaseStudyRepositoryTest {
     val studies = Studies(list)
     val list1 = mutableListOf(studies)
     val resource = Resource(list1)
-    val flowObject = flowOf(resource)
+    val testObject = flowOf(resource)
 
     @Test
     fun getCaseStudies() {
         repository = Mockito.mock(CaseStudyRepository::class.java)
-        Mockito.doReturn(flowObject).`when`(repository).getCaseStudies()
-        assertEquals(flowObject, repository.getCaseStudies())
+        Mockito.doReturn(testObject).`when`(repository).getCaseStudies()
+        assertEquals(testObject, repository.getCaseStudies())
     }
 }
