@@ -1,4 +1,5 @@
 package gr.repo.kincart.di
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,12 +24,12 @@ object NetworkModule {
     //satisfies provide RetrofitInstance
     @Singleton
     @Provides
-    fun provideHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor) : OkHttpClient {
-        httpLoggingInterceptor.level =  HttpLoggingInterceptor.Level.BODY
+    fun provideHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .build()
+                .readTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .build()
     }
 
     //returns gsonConverterFactory to provideRetrofit
@@ -42,14 +43,14 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofitInstance(
-        okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+            okHttpClient: OkHttpClient,
+            gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(gsonConverterFactory)
-            .build()
+                .baseUrl(BASE_URL)
+                .client(okHttpClient)
+                .addConverterFactory(gsonConverterFactory)
+                .build()
     }
 
     //this will give the api instance in our RemoteDataSource

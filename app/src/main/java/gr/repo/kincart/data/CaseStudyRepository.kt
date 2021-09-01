@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class CaseStudyRepository @Inject constructor(
-    remoteDataSource: RemoteDataSource,
-    caseStudyDatabase: CaseStudyDatabase
+        remoteDataSource: RemoteDataSource,
+        caseStudyDatabase: CaseStudyDatabase
 ) {
 
     val remote = remoteDataSource

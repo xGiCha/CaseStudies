@@ -21,7 +21,7 @@ object BindingAdapters {
     @BindingAdapter("isVisible")
     @JvmStatic
     fun MaterialCardView.isVisible(item: String?) {
-        if(item.isNullOrEmpty())
+        if (item.isNullOrEmpty())
             this.visibility = View.GONE
         else
             this.visibility = View.VISIBLE
@@ -33,20 +33,20 @@ object BindingAdapters {
 
         val url = imageRaw
 
-        loadImage(context, url, this )
+        loadImage(context, url, this)
 
     }
 
-    fun loadImage(context: Context, url: String, imageV: ImageView){
+    fun loadImage(context: Context, url: String, imageV: ImageView) {
         val displayMetrics = context.resources?.displayMetrics
         val height = displayMetrics?.heightPixels
         val width = displayMetrics?.widthPixels
 
         Picasso.with(context)
-            .load(url)
-            .placeholder(R.drawable.blank)
-            .resize(width?:0, height?.div(4)?:0)
-            .centerCrop()
-            .into(imageV)
+                .load(url)
+                .placeholder(R.drawable.blank)
+                .resize(width ?: 0, height?.div(4) ?: 0)
+                .centerCrop()
+                .into(imageV)
     }
 }

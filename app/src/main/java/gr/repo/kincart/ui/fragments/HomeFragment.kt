@@ -28,8 +28,8 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -52,14 +52,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        caseStudiesViewModel.caseStudies.observe(viewLifecycleOwner, Observer {caseStudyList ->
+        caseStudiesViewModel.caseStudies.observe(viewLifecycleOwner, Observer { caseStudyList ->
             caseStudyList.data?.let { list ->
-                if(list.isNotEmpty()){
+                if (list.isNotEmpty()) {
                     adapter.submitList(list[0].caseStudy.caseStudies)
 
-                    if(caseStudyList is Resource.Loading){
+                    if (caseStudyList is Resource.Loading) {
                         showShimmerEffect()
-                    }else{
+                    } else {
                         hideShimmerEffect()
                     }
                 }

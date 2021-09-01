@@ -13,9 +13,9 @@ class CaseStudyAdapter
     : ListAdapter<CaseStudy, CaseStudyAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    val binding: CaseStudyItemBinding = CaseStudyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    return ViewHolder(binding)
-}
+        val binding: CaseStudyItemBinding = CaseStudyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
 
     inner class ViewHolder(val binding: CaseStudyItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
