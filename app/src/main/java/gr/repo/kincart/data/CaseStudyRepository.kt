@@ -22,6 +22,7 @@ class CaseStudyRepository @Inject constructor(
     val remote = remoteDataSource
     val local = caseStudyDatabase
 
+    // includes caching    
     fun getCaseStudies() = networkBoundResource(
             query = {
                 local.caseStudyDao().readCaseStudies()
