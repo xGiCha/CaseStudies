@@ -21,22 +21,4 @@ class CaseStudyRepository @Inject constructor(
 
     val remote = remoteDataSource
     val local = caseStudyDatabase
-
-    // includes caching    
-    fun getCaseStudies() = networkBoundResource(
-            query = {
-                local.caseStudyDao().readCaseStudies()
-            },
-            fetch = {
-                delay(2000)
-                remote.getCaseStudies()
-            },
-            saveFetchResult = { caseStudies ->
-                local.withTransaction {
-                    val caseStudyEntity = CaseStudyEntity(caseStudies)
-                    local.caseStudyDao().deleteAllCaseStudies()
-                    local.caseStudyDao().insertCaseStudy(caseStudyEntity)
-                }
-            }
-    )
 }

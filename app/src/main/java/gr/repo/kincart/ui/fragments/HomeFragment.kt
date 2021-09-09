@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViews() {
+
         // setup adapter
         adapter = CaseStudyAdapter()
         binding.caseStudyRV.layoutManager = LinearLayoutManager(requireContext())
@@ -53,19 +54,14 @@ class HomeFragment : Fragment() {
 
     private fun setUpObservers() {
         caseStudiesViewModel.caseStudies.observe(viewLifecycleOwner, Observer { caseStudyList ->
-            caseStudyList.data?.let { list ->
+            caseStudyList.data?.caseStudies?.let { list ->
                 if (list.isNotEmpty()) {
-                    adapter.submitList(list[0].caseStudy.caseStudies)
-
-                    if (caseStudyList is Resource.Loading) {
-                        showShimmerEffect()
-                    } else {
-                        hideShimmerEffect()
-                    }
+                    adapter.submitList(list)
+                    hideShimmerEffect()
                 }
+            }?: kotlin.runCatching {
+                showShimmerEffect()
             }
-            binding.textViewError.isVisible = caseStudyList is Resource.Error && caseStudyList.data.isNullOrEmpty()
-            binding.textViewError.text = caseStudyList.error?.localizedMessage
         })
     }
 
